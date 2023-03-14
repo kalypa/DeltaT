@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class RRotate : MonoBehaviour
 {
-    float rotateSpd = -20f;
-    // Start is called before the first frame update
+    float rotateSpd = -40f;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Rotate(new Vector3(0, 0, rotateSpd * Time.deltaTime));
+        gameObject.transform.Rotate(new Vector3(0, 0, rotateSpd) * Time.deltaTime);
     }
 }
