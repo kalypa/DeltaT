@@ -13,7 +13,12 @@ public class Lane : MonoBehaviour
     public GameObject notePrefab;                                          // 해당 레인에서 생성할 노트 프리팹을 지정하기 위한 변수                                     
     List<Note> notes = new List<Note>();                                   // 생성한 노트를 리스트에 담기 위한 변수
     public List<double> timeStamps = new List<double>();                   // 레인에 할당된 음표들의 타임스탬프 정보를 저장하기 위한 리스트
-
+    public GameObject hitParticle;
+    public GameObject judgementText;
+    public Sprite perfect;
+    public Sprite great;
+    public Sprite good;
+    public Sprite miss;
     int spawnIndex = 0;                                                    // 생성할 노트 인덱스를 기록하기 위한 변수 
     public int inputIndex = 0;                                             // 입력할 노트 인덱스를 기록하기 위한 변수
 
@@ -54,7 +59,7 @@ public class Lane : MonoBehaviour
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)                                                   // 입력이 맞춰졌을 때
                 {
-
+                    AccuracyJudgement(audioTime, timeStamp);
                     Hit();                                                                                             // 점수 추가
                     Destroy(notes[inputIndex].gameObject);                                                             // 노트 삭제
                     inputIndex++;                                                                                      // 입력해야 하는 다음 노트 인덱스를 증가시키는 코드
@@ -71,6 +76,7 @@ public class Lane : MonoBehaviour
             }
             if (timeStamp + marginOfError <= audioTime)            // 노트 입력 시간을 넘어섰을 때
             {
+                judgementText.GetComponent<SpriteRenderer>().sprite = miss;
                 Miss();                                            // 노트를 놓쳤을 때 처리하는 코드
                 print($"Missed {inputIndex} note");
                 inputIndex++;                                      // 입력해야 하는 다음 노트 인덱스를 증가시킴.
@@ -81,7 +87,21 @@ public class Lane : MonoBehaviour
     private void Hit()
     {
         if (FindObjectOfType<ScoreManager>() != null)        //현재 Scene에 ScoreManager가 있을 때만 실행
+        {
+            if(hitParticle.activeSelf == false)
+                hitParticle.SetActive(true);
+            else
+            {
+                hitParticle.SetActive(false);
+                hitParticle.SetActive(true);
+            }
+            Invoke("ParticleDisable", 0.2f);
             ScoreManager.Instance.Hit();
+        }
+    }
+    private void ParticleDisable()
+    {
+        hitParticle.SetActive(false);
     }
 
     private void Miss()
@@ -95,5 +115,31 @@ public class Lane : MonoBehaviour
         if (FindObjectOfType<OffsetManager>() == null)
             return;
         OffsetManager.Instance.offsetList.Add(d);
+    }
+
+    void AccuracyJudgement(double audioT, double timeStamp)
+    {
+        if(Math.Abs(audioT - timeStamp) <= 0.05)
+        {
+            ScoreManager.Instance.perfectCount++;
+            judgementText.GetComponent<SpriteRenderer>().enabled = true;
+            judgementText.GetComponent<SpriteRenderer>().sprite = perfect;
+            judgementText.GetComponent<TouchEffect>().ComboTextEffect();
+        }
+        else if(Math.Abs(audioT - timeStamp) > 0.05)
+        {
+            if (Math.Abs(audioT - timeStamp) <= 0.09)
+            {
+                ScoreManager.Instance.greatCount++;
+                judgementText.GetComponent<SpriteRenderer>().enabled = true;
+                judgementText.GetComponent<SpriteRenderer>().sprite = great;
+            }
+            else if(Math.Abs(audioT - timeStamp) > 0.09 && Math.Abs(audioT - timeStamp) <= 0.13)
+            {
+                ScoreManager.Instance.goodCount++;
+                judgementText.GetComponent<SpriteRenderer>().enabled = true;
+                judgementText.GetComponent<SpriteRenderer>().sprite = good;
+            }
+        }
     }
 }
