@@ -3419,7 +3419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3328b6b4f9963418d0e7d5f7b53cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endUI: {fileID: 912539215}
+  endUI: {fileID: 1761366196}
 --- !u!4 &1986067992
 Transform:
   m_ObjectHideFlags: 0
@@ -3595,6 +3595,13 @@ MonoBehaviour:
   scoreText: {fileID: 1531553136}
   comboText: {fileID: 1869194765}
   hitAccuracyText: {fileID: 862824060}
+  lane1: {fileID: 1521875082}
+  lane2: {fileID: 1610602990}
+  lane3: {fileID: 456669618}
+  lane4: {fileID: 1317947284}
+  perfectCount: 0
+  greatCount: 0
+  goodCount: 0
 --- !u!4 &2075293810
 Transform:
   m_ObjectHideFlags: 0
