@@ -67,8 +67,10 @@ public class Lane : MonoBehaviour
                         OffsetMeasure(Math.Abs(audioTime - timeStamp));
                 }
 
-                else                                                                                                   // 입력이 맞춰지지 않았을 때
+                else if(audioTime - timeStamp >= marginOfError)                                                                                       // 입력이 맞춰지지 않았을 때
                 {
+                    judgementText.GetComponent<SpriteRenderer>().enabled = true;
+                    judgementText.GetComponent<SpriteRenderer>().sprite = miss;
                     print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");        // 입력이 얼마나 늦었는지 출력하는 코드
                     if (FindObjectOfType<OffsetManager>() != null)                                                     // OffsetManager가 존재한다면, 오프셋을 계산하는 코드
                         OffsetMeasure(Math.Abs(audioTime - timeStamp));
@@ -76,6 +78,7 @@ public class Lane : MonoBehaviour
             }
             if (timeStamp + marginOfError <= audioTime)            // 노트 입력 시간을 넘어섰을 때
             {
+                judgementText.GetComponent<SpriteRenderer>().enabled = true;
                 judgementText.GetComponent<SpriteRenderer>().sprite = miss;
                 Miss();                                            // 노트를 놓쳤을 때 처리하는 코드
                 print($"Missed {inputIndex} note");

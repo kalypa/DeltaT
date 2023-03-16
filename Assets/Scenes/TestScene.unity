@@ -1151,6 +1151,50 @@ Transform:
   m_Father: {fileID: 1467932905}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &716471717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 716471719}
+  - component: {fileID: 716471718}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &716471718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716471717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8169f26ec50ee51479d30d255d42c244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &716471719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716471717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &754584968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1517,7 @@ Transform:
   m_GameObject: {fileID: 852915241}
   m_LocalRotation: {x: 0.603208, y: -0, z: -0, w: 0.797584}
   m_LocalPosition: {x: 0.8, y: 0, z: 0}
-  m_LocalScale: {x: 0.888, y: 1, z: 1}
+  m_LocalScale: {x: 0.888, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 556919374}
@@ -1739,7 +1783,7 @@ Transform:
   m_GameObject: {fileID: 926612633}
   m_LocalRotation: {x: 0.603208, y: -0, z: -0, w: 0.797584}
   m_LocalPosition: {x: -1, y: 0, z: 0}
-  m_LocalScale: {x: 0.888, y: 1, z: 1}
+  m_LocalScale: {x: 0.888, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 556919374}
@@ -2229,7 +2273,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234366872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47, y: 2.03, z: 0}
+  m_LocalPosition: {x: 0.47, y: 2.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2561,7 +2605,7 @@ Transform:
   m_GameObject: {fileID: 1420818940}
   m_LocalRotation: {x: 0.603208, y: -0, z: -0, w: 0.797584}
   m_LocalPosition: {x: -2.8, y: 0, z: 0}
-  m_LocalScale: {x: 0.888, y: 1, z: 1}
+  m_LocalScale: {x: 0.888, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 556919374}
@@ -2977,8 +3021,8 @@ MonoBehaviour:
   marginOfError: 0.17
   inputDelayInMilliseconds: 0
   fileLocation: Cross Destiny.mid
-  noteTime: 1
-  noteSpawnY: 7
+  noteTime: 0.7
+  noteSpawnY: 10
   noteTapY: -3
 --- !u!4 &1654485096
 Transform:
@@ -3595,10 +3639,6 @@ MonoBehaviour:
   scoreText: {fileID: 1531553136}
   comboText: {fileID: 1869194765}
   hitAccuracyText: {fileID: 862824060}
-  lane1: {fileID: 1521875082}
-  lane2: {fileID: 1610602990}
-  lane3: {fileID: 456669618}
-  lane4: {fileID: 1317947284}
   perfectCount: 0
   greatCount: 0
   goodCount: 0
@@ -3783,7 +3823,7 @@ Transform:
   m_GameObject: {fileID: 2132064889}
   m_LocalRotation: {x: 0.603208, y: -0, z: -0, w: 0.797584}
   m_LocalPosition: {x: 2.6, y: 0, z: 0}
-  m_LocalScale: {x: 0.888, y: 1, z: 1}
+  m_LocalScale: {x: 0.888, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 556919374}
