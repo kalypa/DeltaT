@@ -21,7 +21,7 @@ public class Lane : MonoBehaviour
     public Sprite miss;
     int spawnIndex = 0;                                                    // 생성할 노트 인덱스를 기록하기 위한 변수 
     public int inputIndex = 0;                                             // 입력할 노트 인덱스를 기록하기 위한 변수
-
+    private float timer = 0;
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)       // 미디 파일에서 추출한 음표 정보를 이용하여 해당 레인에 음표가 떨어질 타이밍 정보를 저장하는 함수
     {
         foreach (var note in array)
@@ -37,6 +37,7 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
+        JudgementTextTimer();
         if (spawnIndex < timeStamps.Count)                                                                             // 해당 레인에 노트를 생성하는 코드
         {
             if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)            // 노트 생성 시간이 되면 노트를 생성하는 코드
@@ -59,6 +60,7 @@ public class Lane : MonoBehaviour
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)                                                   // 입력이 맞춰졌을 때
                 {
+                    timer = 0;
                     AccuracyJudgement(audioTime, timeStamp);
                     Hit();                                                                                             // 점수 추가
                     Destroy(notes[inputIndex].gameObject);                                                             // 노트 삭제
@@ -69,6 +71,7 @@ public class Lane : MonoBehaviour
 
                 else if(audioTime - timeStamp >= marginOfError)                                                                                       // 입력이 맞춰지지 않았을 때
                 {
+                    timer = 0;
                     judgementText.GetComponent<SpriteRenderer>().enabled = true;
                     judgementText.GetComponent<SpriteRenderer>().sprite = miss;
                     print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");        // 입력이 얼마나 늦었는지 출력하는 코드
@@ -78,6 +81,7 @@ public class Lane : MonoBehaviour
             }
             if (timeStamp + marginOfError <= audioTime)            // 노트 입력 시간을 넘어섰을 때
             {
+                timer = 0;
                 judgementText.GetComponent<SpriteRenderer>().enabled = true;
                 judgementText.GetComponent<SpriteRenderer>().sprite = miss;
                 Miss();                                            // 노트를 놓쳤을 때 처리하는 코드
@@ -143,6 +147,23 @@ public class Lane : MonoBehaviour
                 judgementText.GetComponent<SpriteRenderer>().enabled = true;
                 judgementText.GetComponent<SpriteRenderer>().sprite = good;
             }
+        }
+    }
+
+    void JudgementTextTimer()
+    {
+        if(judgementText.GetComponent <SpriteRenderer>().enabled == true)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0;
+        }
+
+        if(timer >= 2)
+        {
+            judgementText.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 }

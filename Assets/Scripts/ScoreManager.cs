@@ -17,7 +17,7 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
     public int greatCount = 0;
     public int goodCount = 0;
     int hitCount = 0;
-    int missCount = 0;
+    public int missCount = 0;
 
     void Start()
     {

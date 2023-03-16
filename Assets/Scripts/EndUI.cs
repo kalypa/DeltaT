@@ -8,6 +8,10 @@ public class EndUI : SingleMonobehaviour<EndUI>
     [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text accuracyText;
+    [SerializeField] private TMP_Text perfectText;
+    [SerializeField] private TMP_Text greatText;
+    [SerializeField] private TMP_Text goodText;
+    [SerializeField] private TMP_Text missText;
 
     public void EndTexts()
     {
@@ -33,5 +37,9 @@ public class EndUI : SingleMonobehaviour<EndUI>
         }
         scoreText.text = ScoreManager.Instance.scoreText.text;
         accuracyText.text = ScoreManager.Instance.hitAccuracyText.text;
+        perfectText.text = "Perfect" + ScoreManager.Instance.perfectCount.ToString();
+        greatText.text = "Great" +  ScoreManager.Instance.greatCount.ToString();
+        goodText.text = "Good" + ScoreManager.Instance.goodCount.ToString();
+        missText.text = "Miss" + ScoreManager.Instance.missCount.ToString();
     }
 }
