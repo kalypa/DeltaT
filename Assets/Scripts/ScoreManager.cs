@@ -7,6 +7,7 @@ using TMPro;
 public class ScoreManager : SingleMonobehaviour<ScoreManager>
 {
     public TMP_Text scoreText;
+    public TMP_Text comboNumText;
     public TMP_Text comboText;
     public TMP_Text hitAccuracyText;
 
@@ -48,8 +49,9 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
 
     void UpdateUI()
     {
+        comboText.text = "Combo";
         scoreText.text = "Score : " + score.ToString();
-        comboText.text = "Combo : " + combo.ToString();
+        comboNumText.text = combo.ToString();
         hitAccuracyText.text = "Accuracy : " + CalculateHitAccuracy().ToString("F2") + "%";
     }
 

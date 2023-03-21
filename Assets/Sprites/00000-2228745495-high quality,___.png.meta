@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c5265199b7347d246bcb40302da55e98
+guid: 255527765e0496b4aa0c2662e160f214
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,91 +115,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: AJText_2
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 390
-        width: 440
-        height: 110
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8908f0630f255a4ba6b96df723c4e02
-      internalID: 1537379016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AJText_4
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 274
-        width: 440
-        height: 110
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 37f208b799a9910478bb8aa534e43499
-      internalID: -602237698
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AJText_7
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 129
-        width: 440
-        height: 110
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ca320842f017cf43ada278f3e66f587
-      internalID: -870999434
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AJText_9
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 3
-        width: 440
-        height: 110
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a91d5cdf115cc1841bc3c8f6c810421f
-      internalID: 1528234578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -210,19 +126,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      AJText_1: -1729711290
-      AJText_4: -602237698
-      AJText_2: 1537379016
-      AJText_8: 1360655888
-      AJText_7: -870999434
-      AJText_10: -84126239
-      AJText_3: -423945575
-      AJText_0: -1336914102
-      AJText_5: -1343950910
-      AJText_9: 1528234578
-      AJText_6: 1001306563
-      AJText_11: -82600930
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

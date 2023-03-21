@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class Note : SingleMonobehaviour<Note>
 {
+    
     double timeInstantiated;
     public float assignedTime;
     public float endTime;
+    public NoteType type;
+
+    public enum NoteType
+    { 
+        Long,
+        Normal,
+    }
+
     void Start()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
@@ -26,6 +35,14 @@ public class Note : SingleMonobehaviour<Note>
         {
             transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnY, Vector3.forward * SongManager.Instance.noteDespawnY, t);
             GetComponent<SpriteRenderer>().enabled = true;
+        }
+    }
+
+    void LongNoteTail()
+    {
+        if(this.type == NoteType.Long)
+        {
+            
         }
     }
 }

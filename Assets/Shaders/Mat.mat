@@ -34,10 +34,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _LazerEdgeSmoothness: 10
-    - _LazerScale: 5
-    - _LazerThickness: 20
+    - _LazerEdgeSmoothness: 40
+    - _LazerScale: 3.74
+    - _LazerThickness: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
     - _LazerSpd: {r: -0.2, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -11,13 +11,8 @@ public class TouchEffect : SingleMonobehaviour<TouchEffect>
 
     public void ComboTextEffect()
     {
-        DOTween.KillAll();
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         Vector3 OriginalScale = transform.localScale;
-        DOTween.Sequence().Append(transform.DOScale(new Vector3(OriginalScale.x, OriginalScale.y, OriginalScale.z - scaleOffset), 0.11f).SetEase(Ease.Linear)).Append(transform.DOScale(new Vector3(1, 1, 1), 0.11f).SetEase(Ease.Linear));
-    }
-    void ActiveFalseObj()
-    {
-        this.GetComponent<SpriteRenderer>().enabled = false;
+        DOTween.Sequence().Append(transform.DOScale(new Vector3(OriginalScale.x + scaleOffset, OriginalScale.y + scaleOffset, OriginalScale.z), 0.01f).SetEase(Ease.Linear)).Append(transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.01f).SetEase(Ease.Linear));
     }
 }
