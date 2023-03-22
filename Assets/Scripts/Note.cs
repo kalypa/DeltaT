@@ -9,7 +9,8 @@ public class Note : SingleMonobehaviour<Note>
     public float assignedTime;
     public float endTime;
     public NoteType type;
-
+    private LineRenderer lineRenderer;
+    public Transform longNotePos;
     public enum NoteType
     { 
         Long,
@@ -19,6 +20,7 @@ public class Note : SingleMonobehaviour<Note>
     void Start()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -36,13 +38,16 @@ public class Note : SingleMonobehaviour<Note>
             transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnY, Vector3.forward * SongManager.Instance.noteDespawnY, t);
             GetComponent<SpriteRenderer>().enabled = true;
         }
+        if (this.type == NoteType.Long)
+        {
+            LongNoteTail();
+        }
     }
 
-    void LongNoteTail()
+    public void LongNoteTail()
     {
-        if(this.type == NoteType.Long)
-        {
-            
-        }
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, new Vector3(transform.parent.position.x, transform.parent.position.y, transform.position.z));
+        lineRenderer.SetPosition(1, new Vector3(transform.parent.position.x, transform.parent.position.y, longNotePos.position.z));
     }
 }

@@ -13,16 +13,19 @@ public class Lane : MonoBehaviour
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;     // 해당 레인에서 처리할 음표의 높이를 제한하기 위한 노트 이름 변수
     public KeyCode input;                                                  // 해당 레인에서 처리할 입력 버튼을 설정하기 위한 KeyCode 변수
     public GameObject notePrefab;                                          // 해당 레인에서 생성할 노트 프리팹을 지정하기 위한 변수                                     
-    List<Note> notes = new List<Note>();                                   // 생성한 노트를 리스트에 담기 위한 변수
+    public List<Note> notes = new List<Note>();                                   // 생성한 노트를 리스트에 담기 위한 변수
+    public List<Note> longNotes = new List<Note>();                                   // 생성한 노트를 리스트에 담기 위한 변수
     public List<double> timeStamps = new();                   // 레인에 할당된 음표들의 타임스탬프 정보를 저장하기 위한 리스트
     public List<double> endTimeStamps = new();                   // 레인에 할당된 음표들의 타임스탬프 정보를 저장하기 위한 리스트
     public List<bool> isLongNote = new();                   // 레인에 할당된 음표들이 롱노트인지에 대한 정보를 확인하기 위한 리스트
     public GameObject hitParticle;
     public JudgementText judgementText;
+    public GameObject holdLaneImage;
+    Transform longNoteEndPos;
     int spawnIndex = 0;                                                    // 생성할 노트 인덱스를 기록하기 위한 변수 
     int endSpawnIndex = 0;                                                    // 생성할 롱노트 인덱스를 기록하기 위한 변수 
     public int inputIndex = 0;                                             // 입력할 노트 인덱스를 기록하기 위한 변수
-
+    bool isHolding = false;
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)       // 미디 파일에서 추출한 음표 정보를 이용하여 해당 레인에 음표가 떨어질 타이밍 정보를 저장하는 함수
     {
         foreach (var note in array)
@@ -69,40 +72,54 @@ public class Lane : MonoBehaviour
                 spawnIndex++;                                                                                          // 다음 노트 생성 인덱스를 증가시키는 코드
             }
         }
-        //if(endSpawnIndex < endTimeStamps.Count)
-        //{
-        //    if(SongManager.GetAudioSourceTime() >= endTimeStamps[endSpawnIndex] - SongManager.Instance.noteTime)
-        //    {
-        //        if (isLongNote[endSpawnIndex])
-        //        {
-        //            var note = Instantiate(notePrefab, transform);
-        //            note.GetComponent<Note>().type = Note.NoteType.Long;
-        //            notes.Add(note.GetComponent<Note>());
-        //            note.GetComponent<Note>().assignedTime = (float)endTimeStamps[endSpawnIndex];
-        //            endSpawnIndex++;
-        //        }
-        //        else
-        //        {
-        //            endSpawnIndex++;
-        //        }
-        //    }
-        //}
-        if (inputIndex < timeStamps.Count)                                                                             // 노트 입력 
+        if(endSpawnIndex < endTimeStamps.Count)
+        {
+            if (SongManager.GetAudioSourceTime() >= endTimeStamps[endSpawnIndex] - SongManager.Instance.noteTime)
+            {
+                if (isLongNote[endSpawnIndex])
+                {
+                    var note = Instantiate(notePrefab, transform);
+                    note.GetComponent<Note>().type = Note.NoteType.Long;
+                    longNotes.Add(note.GetComponent<Note>());
+                    note.GetComponent<Note>().assignedTime = (float)endTimeStamps[endSpawnIndex];
+                    if(!isHolding)
+                        note.GetComponent<Note>().longNotePos = notes[endSpawnIndex].transform;
+                    endSpawnIndex++;
+                }
+                else
+                {
+                    longNotes.Add(null);
+                    endSpawnIndex++;
+                }
+            }
+        }
+        if (inputIndex < endTimeStamps.Count)                                                                             // 노트 입력 
         {
             double timeStamp = timeStamps[inputIndex];                                                                 // 입력해야 하는 노트의 타임스탬프를 가져오는 코드
+            double endTimeStamp = endTimeStamps[inputIndex];                                                           // 입력해야 하는 노트의 엔드타임스탬프를 가져오는 코드
             double marginOfError = SongManager.Instance.marginOfError;                                                 // 노트 입력 가능 범위를 설정하는 코드
             double audioTime = SongManager.GetAudioSourceTime() - 
                 (SongManager.Instance.inputDelayInMilliseconds / 1000.0);                                              // 오디오 소스의 타임스탬프를 가져와 입력이 얼마나 늦어졌는지 계산하는 코드
-
             if (Input.GetKeyDown(input))                                                                               // 입력키가 눌렸을 때
             {
+                holdLaneImage.SetActive(true);
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)                                                   // 입력이 맞춰졌을 때
                 {
                     judgementText.TimerInit();
                     judgementText.AccuracyJudgement(audioTime, timeStamp);
                     Hit();                                                                                             // 점수 추가
-                    Destroy(notes[inputIndex].gameObject);                                                             // 노트 삭제
-                    inputIndex++;                                                                                      // 입력해야 하는 다음 노트 인덱스를 증가시키는 코드
+                    if (isLongNote[inputIndex]) 
+                    {
+                        longNoteEndPos.position = new Vector3(transform.position.x, 0, -3f);
+                        isHolding = true;
+                        longNotes[inputIndex].longNotePos = longNoteEndPos;
+                        Destroy(notes[inputIndex].gameObject);
+                    }
+                    else
+                    {
+                        Destroy(notes[inputIndex].gameObject);                                                         // 노트 삭제
+                        inputIndex++;                                                                                  // 입력해야 하는 다음 노트 인덱스를 증가시키는 코드
+                    }                                                                                
                     if (FindObjectOfType<OffsetManager>() != null)                                                     // OffsetManager가 존재한다면, 오프셋을 계산하는 코드
                         OffsetMeasure(Math.Abs(audioTime - timeStamp));
                 }
@@ -111,7 +128,7 @@ public class Lane : MonoBehaviour
                 {
                     judgementText.TimerInit();
                     judgementText.ViewMissText();
-                    print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");        // 입력이 얼마나 늦었는지 출력하는 코드
+                    //print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");        // 입력이 얼마나 늦었는지 출력하는 코드
                     if (FindObjectOfType<OffsetManager>() != null)                                                     // OffsetManager가 존재한다면, 오프셋을 계산하는 코드
                         OffsetMeasure(Math.Abs(audioTime - timeStamp));
                 }
@@ -123,6 +140,25 @@ public class Lane : MonoBehaviour
                 Miss();                                            // 노트를 놓쳤을 때 처리하는 코드
                 print($"Missed {inputIndex} note");
                 inputIndex++;                                      // 입력해야 하는 다음 노트 인덱스를 증가시킴.
+            }
+            if(Input.GetKeyUp(input))
+            {
+                holdLaneImage.SetActive(false);
+                if (isHolding)
+                {
+                    if (Math.Abs(audioTime - endTimeStamp) < marginOfError)
+                    {
+                        judgementText.AccuracyJudgement(audioTime, endTimeStamp);
+                        Hit();
+                        Destroy(longNotes[inputIndex].gameObject);
+                        inputIndex++;
+                    }
+                    else if (Math.Abs(audioTime - endTimeStamp) >= marginOfError)
+                    {
+                        judgementText.TimerInit();
+                        judgementText.ViewMissText();
+                    }
+                }
             }
         }
     }

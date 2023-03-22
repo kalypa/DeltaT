@@ -19,6 +19,6 @@ public class ComboText : MonoBehaviour
     {
         rectTransform.localScale = new Vector3(1f, 1f, 1f);
         Vector3 OriginalScale = rectTransform.localScale;
-        DOTween.Sequence().Append(rectTransform.DOScale(new Vector3(OriginalScale.x + scaleOffset, OriginalScale.y + scaleOffset, OriginalScale.z + scaleOffset), 0.01f).SetEase(Ease.Linear)).Append(rectTransform.DOScale(new Vector3(1f, 1f, 1f), 0.01f).SetEase(Ease.Linear));
+        DOTween.Sequence().Append(rectTransform.DOScale(new Vector3(OriginalScale.x + scaleOffset, OriginalScale.y + scaleOffset, OriginalScale.z + scaleOffset), 0.02f).SetEase(Ease.Linear)).Append(rectTransform.DOScale(new Vector3(1f, 1f, 1f), 0.02f).SetEase(Ease.Linear));
     }
 }

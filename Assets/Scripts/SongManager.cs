@@ -79,6 +79,7 @@ public class SongManager : MonoBehaviour
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
         notes.CopyTo(array, 0);    // 배열에 미디 파일에서 추출한 노트 이벤트 정보를 복사
         foreach (var lane in lanes) lane.SetTimeStamps(array);  // 각 레인에 노트 이벤트 정보를 할당하는 메소드 호출
+        foreach (var lane in lanes) lane.SetEndTimeStamps(array);  // 각 레인에 노트 이벤트 정보를 할당하는 메소드 호출
 
         Invoke(nameof(StartSong), songDelayInSeconds);  // 지정한 시간 후 곡을 시작하는 메소드를 호출하는 Invoke 함수
     }
